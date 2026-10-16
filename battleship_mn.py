@@ -642,6 +642,7 @@ PLAYER_MISS_LINES = ["Miss! Just a splash and a confused walleye.",
                      "Miss! Ope, sorry, that one went wide."]
 AI_HIT_LINES = ["Hit! Uff da, they got us!", "Hit! Oh, fer cryin' out loud!"]
 AI_MISS_LINES = ["Miss! They splashed a loon. Rude.", "Miss! Not even close, eh?"]
+GOODBYE = "\nThanks for playin'! Drive safe, watch for deer. Bye now!"
 
 
 class BattleshipGame:
@@ -759,7 +760,7 @@ def main(argv: Optional[List[str]] = None) -> int:
             winner = game.play()
             game.announce_winner(winner)
             if not ask_play_again(io):
-                io.say("\nThanks for playin'! Drive safe, watch for deer. Bye now!")
+                io.say(GOODBYE)
                 return 0
     except (KeyboardInterrupt, EOFError):
         io.say("\n\nLeavin' already? Okay then, bye now!")

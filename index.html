@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Battleship: Land of 10,000 Lakes Edition</title>
+  <meta name="description" content="A Minnesota-themed Battleship game you can play in your browser.">
+  <link rel="stylesheet" href="web/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%9A%93</text></svg>">
+</head>
+<body>
+  <header>
+    <h1>Battleship: Land of 10,000 Lakes</h1>
+    <button id="sound" type="button" aria-pressed="true">Sound: on</button>
+    <button id="new-game" type="button">New game</button>
+  </header>
+  <pre id="screen" aria-live="polite">Loading the North Star Fleet...
+(The first visit can take 10-20 seconds while Python loads.)</pre>
+  <form id="command">
+    <input id="answer" type="text" autocomplete="off" autocapitalize="characters"
+           autocorrect="off" spellcheck="false" enterkeyhint="send"
+           placeholder="Loading..." aria-label="Your answer" disabled>
+    <button id="send" type="submit" disabled>Enter</button>
+  </form>
+  <noscript>This game needs JavaScript turned on.</noscript>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.29.5/full/pyodide.js"></script>
+  <script src="web/app.js"></script>
+</body>
+</html>

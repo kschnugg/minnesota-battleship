@@ -1,0 +1,83 @@
+/* Board rows must never wrap, so the font shrinks to fit them on phones. */
+:root {
+  --board-cols: 68;
+  --water: #0b1d2a;
+  --panel: #133349;
+  --text: #e8f1f5;
+  --accent: #f2c14e;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--water);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+}
+
+header, form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  background: var(--panel);
+}
+
+h1 {
+  flex: 1;
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--accent);
+}
+
+button {
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled { opacity: 0.5; cursor: default; }
+
+#screen {
+  flex: 1;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  font-family: ui-monospace, Menlo, Consolas, "Courier New", monospace;
+  font-size: min(15px, calc((100vw - 1.75rem) / (var(--board-cols) * 0.62)));
+  line-height: 1.3;
+}
+
+#screen.boom { animation: boom 0.45s ease-out; }
+
+@keyframes boom {
+  0%   { background: #ffb347; transform: translateX(0); }
+  20%  { transform: translateX(-6px); }
+  40%  { transform: translateX(6px); }
+  60%  { transform: translateX(-3px); }
+  100% { background: var(--water); transform: translateX(0); }
+}
+
+#answer {
+  flex: 1;
+  min-width: 0;
+  padding: 0.5rem;
+  border: 1px solid #5a7d93;
+  border-radius: 6px;
+  background: var(--water);
+  color: var(--text);
+  font-family: ui-monospace, Menlo, Consolas, "Courier New", monospace;
+  font-size: 16px; /* 16px stops iPhones zooming in on focus */
+}

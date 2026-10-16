@@ -4,12 +4,22 @@ A text-based, single-player Battleship game in Python 3 with a Minnesota theme.
 You command the **North Star Fleet** on Lake Superior against the **Cheesehead Navy**,
 a computer opponent sailing over from Wisconsin. Uff da!
 
-## Requirements
+## Play in your browser
+
+**https://kschnugg.github.io/minnesota-battleship/**
+
+No install needed. It works on phones too. The page runs the same Python game in the browser
+with [Pyodide](https://pyodide.org) (Python compiled to WebAssembly), so the first visit can take
+10-20 seconds to load. On an iPhone, turn off silent mode to hear the explosions.
+
+## Play on your computer
+
+### Requirements
 
 - Python 3.7 or newer
 - No third-party packages
 
-## Play
+### Run it
 
 ```bash
 python3 battleship_mn.py            # with explosion sound on hits
@@ -61,3 +71,12 @@ Pass `--no-sound` to turn it off.
 ```bash
 python3 -m unittest -v
 ```
+
+## Project layout
+
+| File | What it is |
+| ---- | ---------- |
+| `battleship_mn.py` | The game |
+| `battleship_web.py` | Lets the game run in a web page (replays the game on each answer) |
+| `index.html`, `web/` | The web page served by GitHub Pages |
+| `test_*.py` | Tests |

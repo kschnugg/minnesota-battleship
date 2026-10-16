@@ -16,6 +16,7 @@ let shownBooms = 0;
 let wavBytes = null;
 let audioContext = null;
 let boomBuffer = null;
+let boomPending = false; // a hit landed before the sound finished decoding
 let soundOn = localStorage.getItem("mn-battleship-sound") !== "off";
 
 function showSoundSetting() {
@@ -35,19 +36,31 @@ function unlockAudio() {
   if (wavBytes && !boomBuffer) {
     const copy = wavBytes.slice().buffer;
     wavBytes = null;
-    audioContext.decodeAudioData(copy).then((buffer) => { boomBuffer = buffer; }, () => {});
+    audioContext.decodeAudioData(copy).then((buffer) => {
+      boomBuffer = buffer;
+      if (boomPending) playBoomSound();
+    }, () => {});
   }
+}
+
+function playBoomSound() {
+  boomPending = false;
+  if (!soundOn || !audioContext) return;
+  if (!boomBuffer) {
+    boomPending = true; // played as soon as decoding finishes
+    return;
+  }
+  const source = audioContext.createBufferSource();
+  source.buffer = boomBuffer;
+  source.connect(audioContext.destination);
+  source.start();
 }
 
 function playBoom() {
   screen.classList.remove("boom");
   void screen.offsetWidth; // restart the shake animation
   screen.classList.add("boom");
-  if (!soundOn || !audioContext || !boomBuffer) return;
-  const source = audioContext.createBufferSource();
-  source.buffer = boomBuffer;
-  source.connect(audioContext.destination);
-  source.start();
+  playBoomSound();
 }
 
 function render() {
@@ -114,6 +127,9 @@ newGameButton.addEventListener("click", () => {
   unlockAudio();
   if (web) newGame();
 });
+
+document.addEventListener("pointerdown", unlockAudio);
+document.addEventListener("keydown", unlockAudio);
 
 showSoundSetting();
 boot().catch(showError);
